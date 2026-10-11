@@ -1,0 +1,32 @@
+# Virtual Environments
+.venv/
+venv/
+env/
+ENV/
+
+# Python Cache
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# Testing & Linting
+.pytest_cache/
+tests/
+pytest.ini
+
+# Git
+.git/
+.gitignore
+
+# Data files (do not embed large raw CSVs in image)
+data/*.csv
+!data/.gitkeep
+
+# Documentation & IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
