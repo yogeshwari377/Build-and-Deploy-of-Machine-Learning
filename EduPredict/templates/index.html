@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduPredict – Student Academic Performance Prediction System</title>
+    <!-- Modern typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <!-- Top Navigation Bar -->
+    <header class="navbar">
+        <div class="nav-container">
+            <a href="/" class="brand-logo">
+                <div class="brand-icon">🎓</div>
+                <div class="brand-text">
+                    <h1>EduPredict</h1>
+                    <span>Student Academic Performance Analytics</span>
+                </div>
+            </a>
+            
+            <div class="nav-right">
+                <div class="health-status-pill" id="healthStatusPill" title="Checking server status...">
+                    <span class="status-dot" id="statusDot"></span>
+                    <span id="statusText">Checking Model...</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="main-wrapper">
+
+        <!-- Hero / Project Introduction Card -->
+        <section class="hero-card">
+            <div class="hero-content">
+                <div class="hero-badge-wrap">
+                    <span class="hero-badge">AI Predictive Engine</span>
+                    <span class="hero-badge-sub">Scikit-Learn ML Core</span>
+                </div>
+                <h2>Forecast Student Academic Potential with Machine Learning</h2>
+                <p>
+                    EduPredict analyzes study habits, prior academic milestones, mock paper discipline, and lifestyle rest cycles to predict a student's continuous <strong>Performance Index (10 – 100)</strong> using trained regression models.
+                </p>
+                <div class="hero-features">
+                    <div class="feature-pill">
+                        <span class="feature-icon">⏱️</span>
+                        <span>5 Core Predictive Factors</span>
+                    </div>
+                    <div class="feature-pill">
+                        <span class="feature-icon">🌲</span>
+                        <span>Trained ML Pipeline</span>
+                    </div>
+                    <div class="feature-pill">
+                        <span class="feature-icon">⚡</span>
+                        <span>Instant Dynamic Inference</span>
+                    </div>
+                    <div class="feature-pill">
+                        <span class="feature-icon">💡</span>
+                        <span>Personalized Guidance</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+
+            <!-- Left Panel: Input Form -->
+            <section class="dashboard-card input-card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">📝 Student Study Profile</h3>
+                        <p class="card-subtitle">Enter student academic metrics for real-time model evaluation</p>
+                    </div>
+                </div>
+
+                <!-- Quick Presets -->
+                <div class="presets-container">
+                    <span class="presets-label">Quick Presets:</span>
+                    <div class="presets-buttons">
+                        <button type="button" class="btn-preset" data-preset="achiever">⭐ High Achiever</button>
+                        <button type="button" class="btn-preset" data-preset="balanced">⚖️ Balanced</button>
+                        <button type="button" class="btn-preset" data-preset="support">🌱 Needs Boost</button>
+                    </div>
+                </div>
+
+                <!-- Prediction Form -->
+                <form id="predictionForm" novalidate>
+
+                    <!-- 1. Hours Studied -->
+                    <div class="form-group">
+                        <div class="form-label-wrap">
+                            <label for="hours_studied" class="form-label">Hours Studied</label>
+                            <span class="form-hint">Daily average (0 – 24 hrs)</span>
+                        </div>
+                        <div class="input-container">
+                            <span class="input-icon">⏳</span>
+                            <input
+                                type="number"
+                                id="hours_studied"
+                                name="hours_studied"
+                                class="form-input"
+                                min="0"
+                                max="24"
+                                step="0.5"
+                                placeholder="e.g. 7.0"
+                                required
+                            >
+                        </div>
+                        <p class="error-hint">Please enter valid daily study hours (0 – 24).</p>
+                    </div>
+
+                    <!-- 2. Previous Scores -->
+                    <div class="form-group">
+                        <div class="form-label-wrap">
+                            <label for="previous_scores" class="form-label">Previous Exam Scores</label>
+                            <span class="form-hint">Score percentage (0 – 100%)</span>
+                        </div>
+                        <div class="input-container">
+                            <span class="input-icon">🎯</span>
+                            <input
+                                type="number"
+                                id="previous_scores"
+                                name="previous_scores"
+                                class="form-input"
+                                min="0"
+                                max="100"
+                                step="0.5"
+                                placeholder="e.g. 85.0"
+                                required
+                            >
+                        </div>
+                        <p class="error-hint">Please enter previous scores between 0 and 100.</p>
+                    </div>
+
+                    <!-- 3. Extracurricular Activities -->
+                    <div class="form-group">
+                        <div class="form-label-wrap">
+                            <label class="form-label">Extracurricular Activities</label>
+                            <span class="form-hint">Participation in clubs, sports, arts</span>
+                        </div>
+                        <div class="radio-options-grid">
+                            <div class="radio-card">
+                                <input type="radio" id="extra_yes" name="extracurricular_activities" value="Yes" checked>
+                                <label for="extra_yes" class="radio-card-label">
+                                    <span class="radio-badge">🌟</span>
+                                    <span>Yes (Active)</span>
+                                </label>
+                            </div>
+                            <div class="radio-card">
+                                <input type="radio" id="extra_no" name="extracurricular_activities" value="No">
+                                <label for="extra_no" class="radio-card-label">
+                                    <span class="radio-badge">🚫</span>
+                                    <span>No (Inactive)</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Sleep Hours -->
+                    <div class="form-group">
+                        <div class="form-label-wrap">
+                            <label for="sleep_hours" class="form-label">Sleep Hours</label>
+                            <span class="form-hint">Daily average rest (0 – 24 hrs)</span>
+                        </div>
+                        <div class="input-container">
+                            <span class="input-icon">🌙</span>
+                            <input
+                                type="number"
+                                id="sleep_hours"
+                                name="sleep_hours"
+                                class="form-input"
+                                min="0"
+                                max="24"
+                                step="0.5"
+                                placeholder="e.g. 7.5"
+                                required
+                            >
+                        </div>
+                        <p class="error-hint">Please enter valid sleep hours (0 – 24).</p>
+                    </div>
+
+                    <!-- 5. Sample Question Papers Practiced -->
+                    <div class="form-group">
+                        <div class="form-label-wrap">
+                            <label for="sample_question_papers_practiced" class="form-label">Sample Question Papers Practiced</label>
+                            <span class="form-hint">Total mock tests solved</span>
+                        </div>
+                        <div class="input-container">
+                            <span class="input-icon">📑</span>
+                            <input
+                                type="number"
+                                id="sample_question_papers_practiced"
+                                name="sample_question_papers_practiced"
+                                class="form-input"
+                                min="0"
+                                max="100"
+                                step="1"
+                                placeholder="e.g. 5"
+                                required
+                            >
+                        </div>
+                        <p class="error-hint">Please enter a valid count of papers (0 or more).</p>
+                    </div>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <button type="submit" class="btn-primary" id="submitBtn">
+                            <span class="spinner" id="submitSpinner"></span>
+                            <span id="submitText">Predict Performance Index</span>
+                        </button>
+                        <button type="button" class="btn-secondary" id="resetBtn">Reset</button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Right Panel: Results & Analytics -->
+            <section class="dashboard-card results-card">
+                <div class="card-header">
+                    <div>
+                        <h3 class="card-title">📈 Predictive Analytics</h3>
+                        <p class="card-subtitle">AI model evaluation and performance breakdown</p>
+                    </div>
+                    <span class="live-pill" id="livePill">● Live ML</span>
+                </div>
+
+                <!-- Alert Messages Banner -->
+                <div id="alertBanner" class="alert-banner">
+                    <span id="alertIcon">⚠️</span>
+                    <span id="alertText">Alert notification</span>
+                </div>
+
+                <!-- 1. Empty State (Initial) -->
+                <div id="stateEmpty" class="state-container">
+                    <div class="empty-graphic">✨</div>
+                    <h4 class="empty-title">Ready for Analysis</h4>
+                    <p class="empty-desc">
+                        Fill in student metrics on the left or select a quick preset to forecast the academic Performance Index using the trained ML model.
+                    </p>
+                </div>
+
+                <!-- 2. Loading State -->
+                <div id="stateLoading" class="state-container loading-box">
+                    <div class="pulse-loader"></div>
+                    <p class="loading-text">Consulting ML Pipeline...</p>
+                    <span class="loading-sub">Calculating regression parameters</span>
+                </div>
+
+                <!-- 3. Result State with Circular Score Gauge -->
+                <div id="stateResult" class="result-view">
+                    
+                    <!-- Circular Gauge Visualization -->
+                    <div class="score-card-wrapper">
+                        <div class="circular-score-wrapper">
+                            <svg class="score-ring-svg" viewBox="0 0 160 160">
+                                <defs>
+                                    <linearGradient id="scoreGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" stop-color="#8B5CF6"/>
+                                        <stop offset="50%" stop-color="#A855F7"/>
+                                        <stop offset="100%" stop-color="#EC4899"/>
+                                    </linearGradient>
+                                    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+                                        <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#8B5CF6" flood-opacity="0.3"/>
+                                    </filter>
+                                </defs>
+                                <!-- Background Track -->
+                                <circle class="score-ring-bg" cx="80" cy="80" r="66" />
+                                <!-- Progress Bar -->
+                                <circle 
+                                    class="score-ring-progress" 
+                                    id="scoreRingCircle" 
+                                    cx="80" 
+                                    cy="80" 
+                                    r="66" 
+                                    stroke="url(#scoreGradient)" 
+                                />
+                            </svg>
+                            <div class="score-ring-center">
+                                <span id="scoreValue" class="score-value">0.0</span>
+                                <span class="score-denom">/ 100</span>
+                                <span id="scoreTierBadge" class="score-badge tier-high">Outstanding</span>
+                            </div>
+                        </div>
+                        <p class="score-label">Predicted Performance Index</p>
+                    </div>
+
+                    <!-- Input Metrics Summary Tiles -->
+                    <div class="metrics-grid">
+                        <div class="metric-pill">
+                            <span class="metric-icon">⏳</span>
+                            <div>
+                                <span class="metric-pill-label">Study Time</span>
+                                <span id="metricHours" class="metric-pill-val">-</span>
+                            </div>
+                        </div>
+                        <div class="metric-pill">
+                            <span class="metric-icon">🎯</span>
+                            <div>
+                                <span class="metric-pill-label">Past Scores</span>
+                                <span id="metricScores" class="metric-pill-val">-</span>
+                            </div>
+                        </div>
+                        <div class="metric-pill">
+                            <span class="metric-icon">🌟</span>
+                            <div>
+                                <span class="metric-pill-label">Activities</span>
+                                <span id="metricExtra" class="metric-pill-val">-</span>
+                            </div>
+                        </div>
+                        <div class="metric-pill">
+                            <span class="metric-icon">🌙</span>
+                            <div>
+                                <span class="metric-pill-label">Rest Cycle</span>
+                                <span id="metricSleep" class="metric-pill-val">-</span>
+                            </div>
+                        </div>
+                        <div class="metric-pill full-width">
+                            <span class="metric-icon">📑</span>
+                            <div>
+                                <span class="metric-pill-label">Sample Papers Practiced</span>
+                                <span id="metricPapers" class="metric-pill-val">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Personalized Academic Guidance Box -->
+                    <div class="insight-box">
+                        <div class="insight-header">
+                            <span class="insight-icon">💡</span>
+                            <strong>Personalized Academic Guidance</strong>
+                        </div>
+                        <p id="insightText">Tailored recommendations based on the predicted score and study habits will appear here.</p>
+                    </div>
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>EduPredict – Student Academic Performance Prediction System &bull; Powered by Scikit-Learn & Flask</p>
+    </footer>
+
+    <!-- JavaScript Controller -->
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
